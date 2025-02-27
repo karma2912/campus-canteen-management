@@ -1,16 +1,35 @@
-import React, { useState, createContext, useContext } from "react";
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
+import React, { useState, createContext, useContext, useRef, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Link,  } from "react-router-dom";
 import { motion } from "framer-motion"; // Import framer-motion for animations
 
 // Create a context for the cart and orders
 const CartContext = createContext();
-
 // Navbar Component with Hamburger Menu
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navbarRef = useRef(null);
+
+  // Close the menu when clicking outside the navbar
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (navbarRef.current && !navbarRef.current.contains(event.target)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  // Close the menu when a link is clicked
+  const handleLinkClick = () => {
+    setIsMenuOpen(false);
+  };
 
   return (
-    <nav className="bg-white shadow-lg">
+    <nav className="bg-white shadow-lg" ref={navbarRef}>
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex justify-between items-center py-4">
           <Link to="/" className="text-2xl font-bold text-indigo-600">
@@ -38,24 +57,43 @@ const Navbar = () => {
           </button>
           {/* Navigation Links */}
           <div
-            className={`md:flex space-x-7 ${isMenuOpen ? "block" : "hidden"} md:block`}
+            className={`md:flex md:space-x-7 md:items-center ${
+              isMenuOpen ? "block" : "hidden"
+            } md:block absolute md:static bg-white md:bg-transparent w-full md:w-auto left-0 md:left-auto top-16 md:top-auto shadow-md md:shadow-none z-20`}
           >
-            <Link to="/" className="block text-gray-700 hover:text-indigo-600 py-2 md:py-0">
+            <Link
+              to="/"
+              className="block text-gray-700 hover:text-indigo-600 py-2 px-4 md:py-0"
+              onClick={handleLinkClick}
+            >
               Home
             </Link>
-            <Link to="/menu" className="block text-gray-700 hover:text-indigo-600 py-2 md:py-0">
+            <Link
+              to="/menu"
+              className="block text-gray-700 hover:text-indigo-600 py-2 px-4 md:py-0"
+              onClick={handleLinkClick}
+            >
               Menu
             </Link>
-            <Link to="/order" className="block text-gray-700 hover:text-indigo-600 py-2 md:py-0">
+            <Link
+              to="/order"
+              className="block text-gray-700 hover:text-indigo-600 py-2 px-4 md:py-0"
+              onClick={handleLinkClick}
+            >
               Order
             </Link>
             <Link
               to="/track-order"
-              className="block text-gray-700 hover:text-indigo-600 py-2 md:py-0"
+              className="block text-gray-700 hover:text-indigo-600 py-2 px-4 md:py-0"
+              onClick={handleLinkClick}
             >
               Track Order
             </Link>
-            <Link to="/admin" className="block text-gray-700 hover:text-indigo-600 py-2 md:py-0">
+            <Link
+              to="/admin"
+              className="block text-gray-700 hover:text-indigo-600 py-2 px-4 md:py-0"
+              onClick={handleLinkClick}
+            >
               Admin
             </Link>
           </div>
@@ -64,6 +102,7 @@ const Navbar = () => {
     </nav>
   );
 };
+
 
 // Hero Component with Animation
 const Hero = () => {
@@ -392,7 +431,6 @@ const AdminPanel = () => {
   const [adminId, setAdminId] = useState("");
   const [password, setPassword] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const navigate = useNavigate();
 
   const handleLogin = () => {
     if (adminId === "admin" && password === "admin123") {
