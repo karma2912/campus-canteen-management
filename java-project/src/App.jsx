@@ -5,8 +5,10 @@ import { motion } from "framer-motion"; // Import framer-motion for animations
 // Create a context for the cart and orders
 const CartContext = createContext();
 
-// Navbar Component
+// Navbar Component with Hamburger Menu
 const Navbar = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
     <nav className="bg-white shadow-lg">
       <div className="max-w-6xl mx-auto px-4">
@@ -14,20 +16,46 @@ const Navbar = () => {
           <Link to="/" className="text-2xl font-bold text-indigo-600">
             Campus Canteen
           </Link>
-          <div className="flex space-x-7">
-            <Link to="/" className="text-gray-700 hover:text-indigo-600">
+          {/* Hamburger Menu Button */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="md:hidden text-gray-700 focus:outline-none"
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h16m-7 6h7"
+              ></path>
+            </svg>
+          </button>
+          {/* Navigation Links */}
+          <div
+            className={`md:flex space-x-7 ${isMenuOpen ? "block" : "hidden"} md:block`}
+          >
+            <Link to="/" className="block text-gray-700 hover:text-indigo-600 py-2 md:py-0">
               Home
             </Link>
-            <Link to="/menu" className="text-gray-700 hover:text-indigo-600">
+            <Link to="/menu" className="block text-gray-700 hover:text-indigo-600 py-2 md:py-0">
               Menu
             </Link>
-            <Link to="/order" className="text-gray-700 hover:text-indigo-600">
+            <Link to="/order" className="block text-gray-700 hover:text-indigo-600 py-2 md:py-0">
               Order
             </Link>
-            <Link to="/track-order" className="text-gray-700 hover:text-indigo-600">
+            <Link
+              to="/track-order"
+              className="block text-gray-700 hover:text-indigo-600 py-2 md:py-0"
+            >
               Track Order
             </Link>
-            <Link to="/admin" className="text-gray-700 hover:text-indigo-600">
+            <Link to="/admin" className="block text-gray-700 hover:text-indigo-600 py-2 md:py-0">
               Admin
             </Link>
           </div>
@@ -63,9 +91,16 @@ const Hero = () => {
   );
 };
 
-// MenuCard Component with Animation
+// MenuCard Component with Add-to-Cart Animation
 const MenuCard = ({ item }) => {
   const { addToCart } = useContext(CartContext);
+  const [isAdded, setIsAdded] = useState(false);
+
+  const handleAddToCart = () => {
+    addToCart(item);
+    setIsAdded(true);
+    setTimeout(() => setIsAdded(false), 1000); // Reset animation after 1 second
+  };
 
   return (
     <motion.div
@@ -81,10 +116,12 @@ const MenuCard = ({ item }) => {
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
+            animate={{ scale: isAdded ? 1.2 : 1 }}
+            transition={{ type: "spring", stiffness: 300 }}
             className="bg-amber-500 text-white px-4 py-2 rounded-full hover:bg-amber-600"
-            onClick={() => addToCart(item)}
+            onClick={handleAddToCart}
           >
-            Add to Cart
+            {isAdded ? "Added!" : "Add to Cart"}
           </motion.button>
         </div>
       </div>
@@ -229,7 +266,6 @@ const Home = () => {
 };
 
 // Menu Page
-
 const Menu = () => {
   const menuCategories = {
     food: [
