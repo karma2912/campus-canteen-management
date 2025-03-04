@@ -34,7 +34,7 @@ const Navbar = () => {
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex justify-between items-center py-4">
           <Link to="/" className="text-2xl font-bold text-teal-600">
-            Campus Canteen
+            KC Canteen
           </Link>
           {/* Hamburger Menu Button */}
           <button
@@ -114,7 +114,7 @@ const Hero = () => {
       className="bg-teal-700 text-white py-20"
     >
       <div className="max-w-4xl mx-auto text-center">
-        <h1 className="text-5xl font-bold mb-6">Welcome to Campus Canteen</h1>
+        <h1 className="text-5xl font-bold mb-6">Welcome to KC Canteen</h1>
         <p className="text-xl mb-8">
           Order delicious meals from your campus canteen with just a few clicks!
         </p>
@@ -227,7 +227,7 @@ const Footer = () => {
   return (
     <footer className="bg-black text-white py-8">
       <div className="max-w-6xl mx-auto px-4 text-center">
-        <p className="mb-4">&copy; 2023 Campus Canteen. All rights reserved.</p>
+        <p className="mb-4">&copy; 2023 KC Canteen. All rights reserved.</p>
         <div className="flex justify-center space-x-6">
           <a href="#" className="hover:text-teal-500">
             Privacy Policy
