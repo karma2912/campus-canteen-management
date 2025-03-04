@@ -1,9 +1,10 @@
 import React, { useState, createContext, useContext, useRef, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, Link,  } from "react-router-dom";
-import { motion } from "framer-motion"; // Import framer-motion for animations
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 // Create a context for the cart and orders
 const CartContext = createContext();
+
 // Navbar Component with Hamburger Menu
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -32,7 +33,7 @@ const Navbar = () => {
     <nav className="bg-white shadow-lg" ref={navbarRef}>
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex justify-between items-center py-4">
-          <Link to="/" className="text-2xl font-bold text-indigo-600">
+          <Link to="/" className="text-2xl font-bold text-teal-600">
             Campus Canteen
           </Link>
           {/* Hamburger Menu Button */}
@@ -63,35 +64,35 @@ const Navbar = () => {
           >
             <Link
               to="/"
-              className="block text-gray-700 hover:text-indigo-600 py-2 px-4 md:py-0"
+              className="block text-gray-700 hover:text-teal-700 py-2 px-4 md:py-0"
               onClick={handleLinkClick}
             >
               Home
             </Link>
             <Link
               to="/menu"
-              className="block text-gray-700 hover:text-indigo-600 py-2 px-4 md:py-0"
+              className="block text-gray-700 hover:text-teal-700 py-2 px-4 md:py-0"
               onClick={handleLinkClick}
             >
               Menu
             </Link>
             <Link
               to="/order"
-              className="block text-gray-700 hover:text-indigo-600 py-2 px-4 md:py-0"
+              className="block text-gray-700 hover:text-teal-700 py-2 px-4 md:py-0"
               onClick={handleLinkClick}
             >
               Order
             </Link>
             <Link
               to="/track-order"
-              className="block text-gray-700 hover:text-indigo-600 py-2 px-4 md:py-0"
+              className="block text-gray-700 hover:text-teal-700 py-2 px-4 md:py-0"
               onClick={handleLinkClick}
             >
               Track Order
             </Link>
             <Link
               to="/admin"
-              className="block text-gray-700 hover:text-indigo-600 py-2 px-4 md:py-0"
+              className="block text-gray-700 hover:text-teal-700 py-2 px-4 md:py-0"
               onClick={handleLinkClick}
             >
               Admin
@@ -103,7 +104,6 @@ const Navbar = () => {
   );
 };
 
-
 // Hero Component with Animation
 const Hero = () => {
   return (
@@ -111,7 +111,7 @@ const Hero = () => {
       initial={{ opacity: 0, y: -50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1 }}
-      className="bg-indigo-600 text-white py-20"
+      className="bg-teal-700 text-white py-20"
     >
       <div className="max-w-4xl mx-auto text-center">
         <h1 className="text-5xl font-bold mb-6">Welcome to Campus Canteen</h1>
@@ -121,7 +121,7 @@ const Hero = () => {
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="bg-amber-500 text-white px-8 py-3 rounded-full font-semibold hover:bg-amber-600"
+          className="bg-white text-teal-700 px-8 py-3 rounded-full font-semibold hover:bg-gray-100"
         >
           Explore Menu
         </motion.button>
@@ -151,13 +151,13 @@ const MenuCard = ({ item }) => {
         <h3 className="text-xl font-semibold text-gray-800 mb-2">{item.name}</h3>
         <p className="text-gray-600 mb-4">{item.description}</p>
         <div className="flex justify-between items-center">
-          <span className="text-lg font-bold text-indigo-600">${item.price}</span>
+          <span className="text-lg font-bold text-teal-700">${item.price}</span>
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             animate={{ scale: isAdded ? 1.2 : 1 }}
             transition={{ type: "spring", stiffness: 300 }}
-            className="bg-amber-500 text-white px-4 py-2 rounded-full hover:bg-amber-600"
+            className="bg-teal-700 text-white px-4 py-2 rounded-full hover:bg-teal-800"
             onClick={handleAddToCart}
           >
             {isAdded ? "Added!" : "Add to Cart"}
@@ -225,14 +225,14 @@ const Testimonials = () => {
 // Footer Component
 const Footer = () => {
   return (
-    <footer className="bg-gray-800 text-white py-8">
+    <footer className="bg-black text-white py-8">
       <div className="max-w-6xl mx-auto px-4 text-center">
         <p className="mb-4">&copy; 2023 Campus Canteen. All rights reserved.</p>
         <div className="flex justify-center space-x-6">
-          <a href="#" className="hover:text-indigo-500">
+          <a href="#" className="hover:text-teal-500">
             Privacy Policy
           </a>
-          <a href="#" className="hover:text-indigo-500">
+          <a href="#" className="hover:text-teal-500">
             Terms of Service
           </a>
         </div>
@@ -335,7 +335,7 @@ const Menu = () => {
             key={category}
             onClick={() => setSelectedCategory(category)}
             className={`px-6 py-2 rounded-full ${
-              selectedCategory === category ? "bg-indigo-600 text-white" : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              selectedCategory === category ? "bg-teal-700 text-white" : "bg-gray-200 text-gray-700 hover:bg-gray-300"
             }`}
           >
             {category.charAt(0).toUpperCase() + category.slice(1)}
@@ -389,7 +389,7 @@ const Order = () => {
               />
               <button
                 onClick={handleConfirmOrder}
-                className="bg-amber-500 text-white px-6 py-2 rounded-lg hover:bg-amber-600"
+                className="bg-teal-700 text-white px-6 py-2 rounded-lg hover:bg-teal-800"
               >
                 Confirm Order (Cash on Delivery)
               </button>
@@ -461,7 +461,7 @@ const AdminPanel = () => {
           />
           <button
             onClick={handleLogin}
-            className="bg-amber-500 text-white px-6 py-2 rounded-lg hover:bg-amber-600"
+            className="bg-teal-700 text-white px-6 py-2 rounded-lg hover:bg-teal-800"
           >
             Login
           </button>
@@ -546,14 +546,16 @@ const App = () => {
       <Router>
         <div className="flex flex-col min-h-screen">
           <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/menu" element={<Menu />} />
-            <Route path="/order" element={<Order />} />
-            <Route path="/track-order" element={<TrackOrder />} />
-            <Route path="/admin" element={<AdminPanel />} />
-            <Route path="/about" element={<About />} />
-          </Routes>
+          <div className="flex-grow">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/menu" element={<Menu />} />
+              <Route path="/order" element={<Order />} />
+              <Route path="/track-order" element={<TrackOrder />} />
+              <Route path="/admin" element={<AdminPanel />} />
+              <Route path="/about" element={<About />} />
+            </Routes>
+          </div>
           <Footer />
         </div>
       </Router>
